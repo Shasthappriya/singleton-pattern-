@@ -1,0 +1,13 @@
+CREATE TABLE Department (
+    dept_id SERIAL PRIMARY KEY,
+    dept_name VARCHAR(50)
+);
+CREATE TABLE Employee (
+    emp_id SERIAL PRIMARY KEY,
+    emp_name VARCHAR(50),
+    dept_id INT REFERENCES Department(dept_id)
+);
+SELECT Employee.emp_name, Department.dept_name
+FROM Employee
+JOIN Department
+ON Employee.dept_id = Department.dept_id;
