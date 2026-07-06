@@ -1,0 +1,21 @@
+from sqlalchemy import create_engine, Column, Integer, String
+from sqlalchemy.orm import declarative_base, sessionmaker
+engine = create_engine("sqlite:///student.db")
+Base = declarative_base()
+class Student(Base):
+    __tablename__ = "students"
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+Base.metadata.create_all(engine)
+Session = sessionmaker(bind=engine)
+session = Session()
+student = Student(name="Priya")
+session.add(student)
+session.commit()
+students = session.query(Student).all()
+for s in students:
+    print(s.id, s.name)
+student.name = "Shasthap Priya"
+session.commit()
+session.delete(student)
+session.commit()
